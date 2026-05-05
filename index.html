@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G. Mahesh Reddy | Data Analyst & Front-End Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a1210;
+      --surface: #221815;
+      --surface2: #2c1e1a;
+      --accent: #ff6b47;
+      --accent2: #ffb899;
+      --accent3: #e8956d;
+      --peach: #ffd4bc;
+      --coral: #ff6b47;
+      --text: #fdf0ea;
+      --muted: #b89080;
+      --border: rgba(255,107,71,0.15);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
+    body::before {
+      content:''; position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events:none; z-index:999; opacity:0.5;
+    }
+    .cursor { position:fixed; width:8px; height:8px; background:var(--coral); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:screen; }
+    .cursor-ring { position:fixed; width:40px; height:40px; border:1px solid rgba(255,107,71,0.45); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:all 0.15s ease; mix-blend-mode:screen; }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 60px; display:flex; justify-content:space-between; align-items:center; backdrop-filter:blur(20px); background:rgba(26,18,16,0.85); border-bottom:1px solid var(--border); }
+    .nav-logo { font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; background:linear-gradient(135deg,var(--coral),var(--peach)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:-0.02em; }
+    .nav-links { display:flex; gap:36px; list-style:none; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:0.875rem; font-weight:500; letter-spacing:0.05em; text-transform:uppercase; transition:color 0.2s; position:relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--coral); transition:width 0.3s; }
+    .nav-links a:hover { color:var(--coral); }
+    .nav-links a:hover::after { width:100%; }
+    .scroll-progress { position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg,var(--coral),var(--peach)); z-index:1000; }
+    #hero { min-height:100vh; display:flex; align-items:center; padding:100px 60px 60px; position:relative; overflow:hidden; }
+    .hero-grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(255,107,71,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,107,71,0.04) 1px,transparent 1px); background-size:60px 60px; animation:gridMove 20s linear infinite; }
+    @keyframes gridMove { 0%{transform:translateY(0)} 100%{transform:translateY(60px)} }
+    .hero-glow { position:absolute; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,rgba(255,107,71,0.1) 0%,transparent 70%); top:-100px; right:-100px; pointer-events:none; animation:glowPulse 4s ease-in-out infinite; }
+    .hero-glow2 { position:absolute; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle,rgba(255,184,153,0.07) 0%,transparent 70%); bottom:0; left:200px; pointer-events:none; animation:glowPulse 6s ease-in-out infinite reverse; }
+    @keyframes glowPulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.1);opacity:0.6} }
+    .hero-content { position:relative; z-index:2; max-width:780px; }
+    .hero-tag { display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border:1px solid var(--border); border-radius:100px; font-size:0.8rem; color:var(--accent2); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:28px; background:rgba(255,107,71,0.07); animation:fadeInUp 0.6s ease forwards; }
+    .hero-tag::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--accent3); animation:blink 1.5s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    h1.hero-title { font-family:'Syne',sans-serif; font-size:clamp(3rem,7vw,6rem); font-weight:800; line-height:1.0; letter-spacing:-0.03em; margin-bottom:24px; animation:fadeInUp 0.7s 0.1s ease both; }
+    .hero-title .highlight { background:linear-gradient(135deg,var(--coral) 0%,var(--peach) 50%,var(--accent2) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; }
+    .hero-sub { font-size:1.15rem; color:var(--muted); line-height:1.7; max-width:560px; margin-bottom:40px; animation:fadeInUp 0.7s 0.2s ease both; font-weight:300; }
+    .hero-ctas { display:flex; gap:14px; flex-wrap:wrap; animation:fadeInUp 0.7s 0.3s ease both; }
+    .btn-primary { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; background:linear-gradient(135deg,var(--coral),var(--accent2)); color:#1a0c08; border-radius:100px; font-weight:600; font-size:0.9rem; text-decoration:none; transition:all 0.3s; }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(255,107,71,0.3); }
+    .btn-primary span { position:relative; z-index:1; }
+    .btn-outline { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border:1px solid var(--border); color:var(--text); border-radius:100px; font-weight:500; font-size:0.9rem; text-decoration:none; transition:all 0.3s; background:rgba(255,255,255,0.02); }
+    .btn-outline:hover { border-color:rgba(255,107,71,0.4); background:rgba(255,107,71,0.06); transform:translateY(-2px); }
+    .hero-stats { display:flex; gap:48px; margin-top:60px; padding-top:40px; border-top:1px solid var(--border); animation:fadeInUp 0.7s 0.4s ease both; }
+    .stat-num { font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; background:linear-gradient(135deg,var(--coral),var(--peach)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .stat-label { font-size:0.8rem; color:var(--muted); margin-top:2px; letter-spacing:0.05em; }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    section { padding:100px 60px; position:relative; }
+    .section-label { font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--coral); font-weight:600; margin-bottom:12px; }
+    .section-title { font-family:'Syne',sans-serif; font-size:clamp(2rem,4vw,3.2rem); font-weight:800; letter-spacing:-0.03em; margin-bottom:16px; line-height:1.1; }
+    .section-desc { color:var(--muted); font-size:1rem; max-width:500px; line-height:1.7; margin-bottom:60px; font-weight:300; }
+    #about { background:var(--surface); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+    .about-text p { color:var(--muted); line-height:1.9; font-size:1rem; margin-bottom:20px; font-weight:300; }
+    .about-text p strong { color:var(--text); font-weight:500; }
+    .about-card { background:var(--surface2); border:1px solid var(--border); border-radius:20px; padding:32px; position:relative; overflow:hidden; }
+    .about-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--coral),var(--peach),var(--accent2)); }
+    .education-item { padding:16px 0; border-bottom:1px solid var(--border); }
+    .education-item:last-child { border-bottom:none; padding-bottom:0; }
+    .edu-degree { font-weight:600; font-size:0.95rem; margin-bottom:4px; }
+    .edu-school { color:var(--muted); font-size:0.85rem; }
+    .edu-score { color:var(--accent3); font-size:0.8rem; margin-top:2px; }
+    .edu-year { color:var(--coral); font-size:0.78rem; margin-top:4px; font-family:'Syne',sans-serif; }
+    .skills-wrapper { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px; }
+    .skill-card { background:var(--surface2); border:1px solid var(--border); border-radius:16px; padding:28px; position:relative; overflow:hidden; transition:all 0.3s; }
+    .skill-card:hover { border-color:rgba(255,107,71,0.35); transform:translateY(-4px); box-shadow:0 20px 40px rgba(0,0,0,0.3); }
+    .skill-card::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,107,71,0.05),transparent 60%); opacity:0; transition:opacity 0.3s; }
+    .skill-card:hover::after { opacity:1; }
+    .skill-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; margin-bottom:16px; }
+    .skill-icon.coral { background:rgba(255,107,71,0.12); }
+    .skill-icon.peach { background:rgba(255,184,153,0.12); }
+    .skill-icon.warm  { background:rgba(232,149,109,0.12); }
+    .skill-icon.soft  { background:rgba(255,212,188,0.1); }
+    .skill-name { font-family:'Syne',sans-serif; font-weight:700; font-size:1rem; margin-bottom:8px; }
+    .skill-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+    .skill-tag { padding:3px 10px; border-radius:100px; font-size:0.75rem; font-weight:500; border:1px solid var(--border); color:var(--muted); background:rgba(255,255,255,0.02); }
+    .skill-bar { margin-top:14px; }
+    .skill-bar-label { display:flex; justify-content:space-between; font-size:0.75rem; color:var(--muted); margin-bottom:6px; }
+    .skill-bar-track { height:4px; background:rgba(255,255,255,0.06); border-radius:100px; overflow:hidden; }
+    .skill-bar-fill { height:100%; border-radius:100px; background:linear-gradient(90deg,var(--coral),var(--peach)); transform:scaleX(0); transform-origin:left; transition:transform 1s ease; }
+    .skill-bar-fill.animated { transform:scaleX(1); }
+    #projects { background:var(--surface); }
+    .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:24px; }
+    .project-card { background:var(--bg); border:1px solid var(--border); border-radius:20px; overflow:hidden; transition:all 0.4s; }
+    .project-card:hover { border-color:rgba(255,107,71,0.3); transform:translateY(-6px); box-shadow:0 30px 60px rgba(0,0,0,0.4); }
+    .project-visual { height:180px; position:relative; overflow:hidden; }
+    .project-visual.dash  { background:linear-gradient(135deg,#2a1810 0%,#1e1008 100%); }
+    .project-visual.mktg  { background:linear-gradient(135deg,#2a1220 0%,#1e0a16 100%); }
+    .project-visual.ai    { background:linear-gradient(135deg,#1a2010 0%,#0e1808 100%); }
+    .project-visual.churn { background:linear-gradient(135deg,#201018 0%,#180810 100%); }
+    .project-visual svg { width:100%; height:100%; position:absolute; inset:0; }
+    .project-body { padding:24px; }
+    .project-tag { display:inline-block; padding:3px 10px; border-radius:100px; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; font-weight:600; margin-bottom:12px; }
+    .project-tag.bi    { background:rgba(255,107,71,0.12); color:var(--coral); border:1px solid rgba(255,107,71,0.25); }
+    .project-tag.py    { background:rgba(255,184,153,0.12); color:var(--peach); border:1px solid rgba(255,184,153,0.25); }
+    .project-tag.ai-t  { background:rgba(16,185,129,0.1); color:#6ee7b7; border:1px solid rgba(16,185,129,0.2); }
+    .project-tag.ml    { background:rgba(244,114,182,0.1); color:#f9a8d4; border:1px solid rgba(244,114,182,0.2); }
+    .project-title { font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:10px; letter-spacing:-0.02em; }
+    .project-desc { color:var(--muted); font-size:0.88rem; line-height:1.7; font-weight:300; }
+    .project-stack { display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; }
+    .stack-badge { padding:3px 10px; border-radius:6px; font-size:0.72rem; font-weight:500; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:var(--muted); }
+    .timeline { position:relative; padding-left:36px; }
+    .timeline::before { content:''; position:absolute; left:0; top:8px; bottom:8px; width:1px; background:linear-gradient(to bottom,var(--coral),var(--accent2),transparent); }
+    .timeline-item { position:relative; padding-bottom:48px; }
+    .timeline-item:last-child { padding-bottom:0; }
+    .timeline-dot { position:absolute; left:-42px; top:4px; width:12px; height:12px; border-radius:50%; background:var(--coral); border:2px solid var(--bg); box-shadow:0 0 0 3px rgba(255,107,71,0.22); }
+    .timeline-date { font-size:0.78rem; color:var(--coral); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px; font-family:'Syne',sans-serif; }
+    .timeline-card { background:var(--surface2); border:1px solid var(--border); border-radius:16px; padding:24px; transition:all 0.3s; }
+    .timeline-card:hover { border-color:rgba(255,107,71,0.3); }
+    .timeline-role { font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:700; margin-bottom:4px; }
+    .timeline-company { color:var(--muted); font-size:0.9rem; }
+    .timeline-desc { color:var(--muted); font-size:0.88rem; line-height:1.7; margin-top:12px; font-weight:300; }
+    #certifications { background:var(--bg); }
+    .cert-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+    .cert-card { background:var(--surface2); border:1px solid var(--border); border-radius:14px; padding:22px; transition:all 0.3s; display:flex; gap:14px; align-items:flex-start; }
+    .cert-card:hover { border-color:rgba(255,107,71,0.3); transform:translateY(-3px); }
+    .cert-icon { font-size:1.4rem; flex-shrink:0; margin-top:2px; }
+    .cert-name { font-weight:600; font-size:0.92rem; margin-bottom:4px; }
+    .cert-issuer { color:var(--muted); font-size:0.8rem; }
+    #contact { background:var(--surface); }
+    .contact-wrapper { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+    .contact-info { display:flex; flex-direction:column; gap:16px; }
+    .contact-item { display:flex; align-items:center; gap:14px; padding:18px 20px; border:1px solid var(--border); border-radius:14px; background:var(--surface2); text-decoration:none; transition:all 0.3s; color:var(--text); }
+    .contact-item:hover { border-color:rgba(255,107,71,0.35); transform:translateX(6px); }
+    .contact-icon { width:40px; height:40px; border-radius:10px; background:rgba(255,107,71,0.1); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+    .contact-label { font-size:0.75rem; color:var(--muted); margin-bottom:2px; text-transform:uppercase; letter-spacing:0.05em; }
+    .contact-value { font-size:0.92rem; font-weight:500; }
+    footer { padding:32px 60px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; background:var(--bg); }
+    footer p { color:var(--muted); font-size:0.85rem; }
+    .reveal { opacity:0; transform:translateY(40px); transition:all 0.8s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-delay-1 { transition-delay:0.1s; }
+    .reveal-delay-2 { transition-delay:0.2s; }
+    .reveal-delay-3 { transition-delay:0.3s; }
+    .reveal-delay-4 { transition-delay:0.4s; }
+    @media(max-width:768px){
+      nav{padding:16px 24px;} .nav-links{display:none;}
+      section{padding:70px 24px;} #hero{padding:100px 24px 60px;}
+      h1.hero-title{font-size:2.8rem;} .hero-stats{flex-wrap:wrap;gap:24px;}
+      .about-grid,.contact-wrapper{grid-template-columns:1fr;gap:40px;}
+      footer{flex-direction:column;gap:12px;padding:24px;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<nav>
+  <div class="nav-logo">MR/</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:groakamaheshreddy@gmail.com" class="btn-primary" style="padding:10px 22px;font-size:0.82rem;"><span>Hire Me</span></a>
+</nav>
+
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1 class="hero-title">G. Mahesh<br><span class="highlight">Reddy</span></h1>
+    <p class="hero-sub">Final-year AI & Data Science student passionate about building user-friendly interfaces and turning raw data into actionable insights. Python · SQL · Power BI · Front-End.</p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary"><span>View Projects</span></a>
+      <a href="https://www.linkedin.com/in/mahesh-reddy-goraka-3639a3310" target="_blank" class="btn-outline">LinkedIn ↗</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num" data-count="2">0</div><div class="stat-label">Internships</div></div>
+      <div><div class="stat-num" data-count="4">0</div><div class="stat-label">Projects</div></div>
+      <div><div class="stat-num" data-count="3">0</div><div class="stat-label">Languages Known</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Data meets<br>design</h2>
+      <p>I'm a final-year <strong>B.Tech student in AI & Data Science</strong> at Gnanamani College of Technology, Namakkal — blending analytical thinking with front-end creativity.</p>
+      <p>With two internships and hands-on project work, I've built solid skills across <strong>Python, SQL, Power BI, Excel, and web technologies</strong> — covering the full data-to-dashboard pipeline.</p>
+      <p>Quick learner, effective collaborator, and fluent in <strong>English, Telugu, and Tamil</strong> — ready for internships and entry-level roles in data analytics and front-end development.</p>
+    </div>
+    <div class="about-card reveal reveal-delay-2">
+      <h3 style="font-family:'Syne',sans-serif;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;">Education</h3>
+      <div class="education-item">
+        <div class="edu-degree">B.Tech — AI & Data Science</div>
+        <div class="edu-school">Gnanamani College of Technology, Namakkal, TN</div>
+        <div class="edu-year">2022 — 2026 · Pursuing</div>
+      </div>
+      <div class="education-item">
+        <div class="edu-degree">Higher Secondary (12th)</div>
+        <div class="edu-school">Sri Chaitanya Junior College, Andhra Pradesh</div>
+        <div class="edu-score">73%</div>
+        <div class="edu-year">Completed 2022</div>
+      </div>
+      <div class="education-item">
+        <div class="edu-degree">Secondary School (10th)</div>
+        <div class="edu-school">Sree Nidhi Concept School, Andhra Pradesh</div>
+        <div class="edu-score">92%</div>
+        <div class="edu-year">Completed 2020</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-label reveal">What I know</div>
+  <h2 class="section-title reveal">Skills &amp; Tools</h2>
+  <p class="section-desc reveal">A focused skill set built through coursework, projects, and real-world internship experience.</p>
+  <div class="skills-wrapper">
+    <div class="skill-card reveal" data-mouse>
+      <div class="skill-icon coral">🐍</div>
+      <div class="skill-name">Programming</div>
+      <div class="skill-bar"><div class="skill-bar-label"><span>Python</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div></div>
+      <div class="skill-bar" style="margin-top:10px"><div class="skill-bar-label"><span>SQL</span><span>80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div></div>
+      <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">DSA</span></div>
+    </div>
+    <div class="skill-card reveal reveal-delay-1" data-mouse>
+      <div class="skill-icon peach">📊</div>
+      <div class="skill-name">Data & Analytics</div>
+      <div class="skill-bar"><div class="skill-bar-label"><span>Power BI</span><span>82%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:82%"></div></div></div>
+      <div class="skill-bar" style="margin-top:10px"><div class="skill-bar-label"><span>Excel</span><span>78%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:78%"></div></div></div>
+      <div class="skill-tags"><span class="skill-tag">Power BI</span><span class="skill-tag">Excel</span><span class="skill-tag">Pandas</span><span class="skill-tag">NumPy</span></div>
+    </div>
+    <div class="skill-card reveal reveal-delay-2" data-mouse>
+      <div class="skill-icon warm">🌐</div>
+      <div class="skill-name">Front-End Dev</div>
+      <div class="skill-bar"><div class="skill-bar-label"><span>HTML5 / CSS3</span><span>75%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div></div>
+      <div class="skill-tags"><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">Responsive</span></div>
+    </div>
+    <div class="skill-card reveal reveal-delay-3" data-mouse>
+      <div class="skill-icon soft">🧠</div>
+      <div class="skill-name">Core Competencies</div>
+      <div class="skill-bar"><div class="skill-bar-label"><span>Data Visualization</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div></div>
+      <div class="skill-tags"><span class="skill-tag">Analysis</span><span class="skill-tag">Visualization</span><span class="skill-tag">Problem Solving</span><span class="skill-tag">Teamwork</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-label reveal">What I've built</div>
+  <h2 class="section-title reveal">Projects</h2>
+  <p class="section-desc reveal">Four projects spanning AI, machine learning, business intelligence, and marketing analytics.</p>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-visual dash">
+        <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="b1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff6b47" stop-opacity="0.8"/><stop offset="100%" stop-color="#ff6b47" stop-opacity="0.1"/></linearGradient>
+            <linearGradient id="b2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffb899" stop-opacity="0.8"/><stop offset="100%" stop-color="#ffb899" stop-opacity="0.1"/></linearGradient>
+            <linearGradient id="l1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ff6b47"/><stop offset="100%" stop-color="#ffd4bc"/></linearGradient>
+          </defs>
+          <line x1="40" y1="20" x2="40" y2="150" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <line x1="40" y1="150" x2="380" y2="150" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <line x1="40" y1="110" x2="380" y2="110" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4"/>
+          <line x1="40" y1="70" x2="380" y2="70" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4"/>
+          <rect x="60" y="80" width="26" height="70" fill="url(#b1)" rx="4"/>
+          <rect x="110" y="60" width="26" height="90" fill="url(#b1)" rx="4"/>
+          <rect x="160" y="90" width="26" height="60" fill="url(#b2)" rx="4"/>
+          <rect x="210" y="45" width="26" height="105" fill="url(#b1)" rx="4"/>
+          <rect x="260" y="70" width="26" height="80" fill="url(#b2)" rx="4"/>
+          <rect x="310" y="50" width="26" height="100" fill="url(#b1)" rx="4"/>
+          <polyline points="73,80 123,60 173,85 223,42 273,68 323,48" fill="none" stroke="url(#l1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="73" cy="80" r="4" fill="#ff6b47"/>
+          <circle cx="123" cy="60" r="4" fill="#ff6b47"/>
+          <circle cx="173" cy="85" r="4" fill="#ff6b47"/>
+          <circle cx="223" cy="42" r="4" fill="#ffd4bc"/>
+          <circle cx="273" cy="68" r="4" fill="#ffd4bc"/>
+          <circle cx="323" cy="48" r="4" fill="#ffd4bc"/>
+        </svg>
+      </div>
+      <div class="project-body">
+        <span class="project-tag bi">Power BI</span>
+        <div class="project-title">Sales Insights Dashboard</div>
+        <p class="project-desc">Comprehensive sales analytics dashboard using Power BI & SQL to track KPIs, identify trends, and support data-driven business decisions.</p>
+        <div class="project-stack"><span class="stack-badge">Power BI</span><span class="stack-badge">SQL</span><span class="stack-badge">DAX</span><span class="stack-badge">Excel</span></div>
+      </div>
+    </div>
+
+    <div class="project-card reveal reveal-delay-1">
+      <div class="project-visual mktg">
+        <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="d1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b47"/><stop offset="100%" stop-color="#ffb899"/></linearGradient>
+            <linearGradient id="d2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffd4bc"/><stop offset="100%" stop-color="#ff6b47" stop-opacity="0.5"/></linearGradient>
+          </defs>
+          <circle cx="130" cy="90" r="52" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="18"/>
+          <circle cx="130" cy="90" r="52" fill="none" stroke="url(#d1)" stroke-width="18" stroke-dasharray="196 130" stroke-dashoffset="0" stroke-linecap="round"/>
+          <circle cx="130" cy="90" r="52" fill="none" stroke="url(#d2)" stroke-width="18" stroke-dasharray="98 228" stroke-dashoffset="-196" stroke-linecap="round"/>
+          <text x="130" y="86" text-anchor="middle" fill="white" font-size="20" font-weight="700" font-family="Syne">60%</text>
+          <text x="130" y="101" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="10">Engagement</text>
+          <circle cx="228" cy="70" r="5" fill="#ff6b47"/>
+          <text x="240" y="74" fill="rgba(255,255,255,0.7)" font-size="11">Social (60%)</text>
+          <circle cx="228" cy="90" r="5" fill="#ffd4bc"/>
+          <text x="240" y="94" fill="rgba(255,255,255,0.7)" font-size="11">Email (29%)</text>
+          <circle cx="228" cy="110" r="5" fill="rgba(255,255,255,0.2)"/>
+          <text x="240" y="114" fill="rgba(255,255,255,0.7)" font-size="11">Other (11%)</text>
+          <rect x="220" y="135" width="130" height="5" rx="3" fill="rgba(255,255,255,0.05)"/>
+          <rect x="220" y="135" width="78" height="5" rx="3" fill="#ff6b47" opacity="0.6"/>
+          <text x="220" y="154" fill="rgba(255,255,255,0.3)" font-size="9">Campaign ROI Analysis</text>
+        </svg>
+      </div>
+      <div class="project-body">
+        <span class="project-tag py">Python</span>
+        <div class="project-title">Marketing Analytics Case Study</div>
+        <p class="project-desc">Analyzed multi-channel campaign engagement data to evaluate performance, measure ROI, and recommend strategy improvements.</p>
+        <div class="project-stack"><span class="stack-badge">Python</span><span class="stack-badge">Pandas</span><span class="stack-badge">Matplotlib</span><span class="stack-badge">EDA</span></div>
+      </div>
+    </div>
+
+    <div class="project-card reveal reveal-delay-2">
+      <div class="project-visual ai">
+        <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="80" cy="60" r="12" fill="rgba(110,231,183,0.15)" stroke="#6ee7b7" stroke-width="1.5"/>
+          <circle cx="80" cy="90" r="12" fill="rgba(110,231,183,0.15)" stroke="#6ee7b7" stroke-width="1.5"/>
+          <circle cx="80" cy="120" r="12" fill="rgba(110,231,183,0.15)" stroke="#6ee7b7" stroke-width="1.5"/>
+          <circle cx="170" cy="50" r="14" fill="rgba(110,231,183,0.2)" stroke="#6ee7b7" stroke-width="1.5"/>
+          <circle cx="170" cy="90" r="14" fill="rgba(110,231,183,0.2)" stroke="#6ee7b7" stroke-width="1.5"/>
+          <circle cx="170" cy="130" r="14" fill="rgba(110,231,183,0.2)" stroke="#6ee7b7" stroke-width="1.5"/>
+          <circle cx="260" cy="70" r="14" fill="rgba(110,231,183,0.25)" stroke="#6ee7b7" stroke-width="2"/>
+          <circle cx="260" cy="110" r="14" fill="rgba(110,231,183,0.25)" stroke="#6ee7b7" stroke-width="2"/>
+          <circle cx="340" cy="90" r="16" fill="rgba(110,231,183,0.3)" stroke="#6ee7b7" stroke-width="2"/>
+          <line x1="92" y1="60" x2="156" y2="50" stroke="rgba(110,231,183,0.2)" stroke-width="1"/>
+          <line x1="92" y1="60" x2="156" y2="90" stroke="rgba(110,231,183,0.2)" stroke-width="1"/>
+          <line x1="92" y1="90" x2="156" y2="50" stroke="rgba(110,231,183,0.15)" stroke-width="1"/>
+          <line x1="92" y1="90" x2="156" y2="90" stroke="rgba(110,231,183,0.2)" stroke-width="1"/>
+          <line x1="92" y1="90" x2="156" y2="130" stroke="rgba(110,231,183,0.15)" stroke-width="1"/>
+          <line x1="92" y1="120" x2="156" y2="90" stroke="rgba(110,231,183,0.2)" stroke-width="1"/>
+          <line x1="92" y1="120" x2="156" y2="130" stroke="rgba(110,231,183,0.2)" stroke-width="1"/>
+          <line x1="184" y1="50" x2="246" y2="70" stroke="rgba(110,231,183,0.2)" stroke-width="1"/>
+          <line x1="184" y1="90" x2="246" y2="70" stroke="rgba(110,231,183,0.2)" stroke-width="1"/>
+          <line x1="184" y1="90" x2="246" y2="110" stroke="rgba(110,231,183,0.2)" stroke-width="1"/>
+          <line x1="184" y1="130" x2="246" y2="110" stroke="rgba(110,231,183,0.2)" stroke-width="1"/>
+          <line x1="274" y1="70" x2="324" y2="90" stroke="rgba(110,231,183,0.3)" stroke-width="1.5"/>
+          <line x1="274" y1="110" x2="324" y2="90" stroke="rgba(110,231,183,0.3)" stroke-width="1.5"/>
+          <text x="340" y="95" text-anchor="middle" fill="#6ee7b7" font-size="9" font-weight="600">OUT</text>
+          <text x="35" y="175" fill="rgba(110,231,183,0.3)" font-size="9">Input Layer</text>
+          <text x="142" y="175" fill="rgba(110,231,183,0.3)" font-size="9">Hidden Layer</text>
+          <text x="238" y="175" fill="rgba(110,231,183,0.3)" font-size="9">Output</text>
+        </svg>
+      </div>
+      <div class="project-body">
+        <span class="project-tag ai-t">AI / ML</span>
+        <div class="project-title">AI-Based Productivity Optimizer</div>
+        <p class="project-desc">AI-powered system that analyzes individual work patterns and recommends optimized task scheduling strategies to maximize daily productivity.</p>
+        <div class="project-stack"><span class="stack-badge">Python</span><span class="stack-badge">ML</span><span class="stack-badge">Pandas</span><span class="stack-badge">Scikit-learn</span></div>
+      </div>
+    </div>
+
+    <div class="project-card reveal reveal-delay-3">
+      <div class="project-visual churn">
+        <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="60,25 340,25 300,72 100,72" fill="rgba(244,114,182,0.18)" stroke="#f472b6" stroke-width="1.5"/>
+          <polygon points="100,78 300,78 268,122 132,122" fill="rgba(244,114,182,0.13)" stroke="#f472b6" stroke-width="1.5"/>
+          <polygon points="132,128 268,128 248,158 152,158" fill="rgba(244,114,182,0.1)" stroke="#f472b6" stroke-width="1.5"/>
+          <text x="200" y="53" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="11" font-weight="600">Total Customers · 1,000</text>
+          <text x="200" y="103" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11">At-Risk · 450</text>
+          <text x="200" y="146" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11">Churned · 180</text>
+          <rect x="288" y="144" width="90" height="24" rx="12" fill="rgba(244,114,182,0.2)" stroke="#f472b6" stroke-width="1"/>
+          <text x="333" y="160" text-anchor="middle" fill="#f9a8d4" font-size="10" font-weight="700">Acc 87%</text>
+        </svg>
+      </div>
+      <div class="project-body">
+        <span class="project-tag ml">ML</span>
+        <div class="project-title">Customer Churn Analysis</div>
+        <p class="project-desc">ML model to predict customer churn using classification algorithms with 87% accuracy — enabling proactive, data-backed retention strategies.</p>
+        <div class="project-stack"><span class="stack-badge">Python</span><span class="stack-badge">Scikit-learn</span><span class="stack-badge">SQL</span><span class="stack-badge">Power BI</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-label reveal">Where I've worked</div>
+  <h2 class="section-title reveal">Experience</h2>
+  <p class="section-desc reveal">Hands-on internship experience building real skills in production environments.</p>
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2024</div>
+      <div class="timeline-card">
+        <div class="timeline-role">Python Developer Intern</div>
+        <div class="timeline-company">Codtech IT Solutions</div>
+        <p class="timeline-desc">Developed Python scripts and automation tools, gaining practical experience in backend logic, data processing pipelines, and writing clean, maintainable code.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--accent2);box-shadow:0 0 0 3px rgba(255,184,153,0.2);"></div>
+      <div class="timeline-date">2024</div>
+      <div class="timeline-card">
+        <div class="timeline-role">Data Science Intern</div>
+        <div class="timeline-company">Fantasy Solutions</div>
+        <p class="timeline-desc">Applied data science techniques to real business datasets — exploratory data analysis, statistical modeling, and data visualization to surface actionable insights.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="section-label reveal">Credentials</div>
+  <h2 class="section-title reveal">Certifications</h2>
+  <p class="section-desc reveal">Verified skills and formal recognition from industry training programs.</p>
+  <div class="cert-grid reveal">
+    <div class="cert-card">
+      <div class="cert-icon">🐍</div>
+      <div><div class="cert-name">Python Certificate</div><div class="cert-issuer">Core Python Programming</div></div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🔗</div>
+      <div><div class="cert-name">Data Structures & Algorithms</div><div class="cert-issuer">Reliance Academy</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-wrapper">
+    <div class="reveal">
+      <div class="section-label">Get in touch</div>
+      <h2 class="section-title">Let's work<br>together</h2>
+      <p class="section-desc" style="margin-bottom:0">Open to full-time roles, internships, and collaboration in data analytics and front-end development.</p>
+    </div>
+    <div class="contact-info reveal reveal-delay-2">
+      <a href="mailto:groakamaheshreddy@gmail.com" class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div><div class="contact-label">Email</div><div class="contact-value">groakamaheshreddy@gmail.com</div></div>
+      </a>
+      <a href="tel:8247320199" class="contact-item">
+        <div class="contact-icon">📱</div>
+        <div><div class="contact-label">Phone</div><div class="contact-value">+91 82473 20199</div></div>
+      </a>
+      <a href="https://www.linkedin.com/in/mahesh-reddy-goraka-3639a3310" target="_blank" class="contact-item">
+        <div class="contact-icon">💼</div>
+        <div><div class="contact-label">LinkedIn</div><div class="contact-value">mahesh-reddy-goraka ↗</div></div>
+      </a>
+      <div class="contact-item" style="cursor:default;">
+        <div class="contact-icon">📍</div>
+        <div><div class="contact-label">Location</div><div class="contact-value">Namakkal, Tamil Nadu</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 G. Mahesh Reddy — AI & Data Science · Front-End Developer</p>
+  <p style="color:var(--coral);font-family:'Syne',sans-serif;font-size:0.8rem;opacity:0.7;">Built with precision</p>
+</footer>
+
+<script>
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.transform='translate(-50%,-50%) scale(1.5)';ring.style.borderColor='rgba(255,107,71,0.65)';});
+    el.addEventListener('mouseleave',()=>{ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.borderColor='rgba(255,107,71,0.45)';});
+  });
+  const prog=document.getElementById('scroll-progress');
+  window.addEventListener('scroll',()=>{prog.style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';});
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  const bObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.querySelectorAll('.skill-bar-fill').forEach(b=>b.classList.add('animated'));});},{threshold:0.3});
+  document.querySelectorAll('.skill-card').forEach(c=>bObs.observe(c));
+  function animateCount(el,t){let c=0;const s=t/40,i=setInterval(()=>{c=Math.min(c+s,t);el.textContent=Math.round(c)+'+';if(c>=t)clearInterval(i);},30);}
+  const cObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('[data-count]').forEach(el=>animateCount(el,parseInt(el.dataset.count)));cObs.disconnect();}});},{threshold:0.5});
+  cObs.observe(document.querySelector('.hero-stats'));
+  document.querySelectorAll('[data-mouse]').forEach(card=>{
+    card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');});
+  });
+  const secs=document.querySelectorAll('section[id]'),nls=document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id;});nls.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'var(--coral)':'';});});
+</script>
+</body>
+</html>
